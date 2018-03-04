@@ -1,0 +1,219 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Beacons";
+}
+
+<h2>Beacons</h2>
+<br />
+<p>
+    @Html.ActionLink("Create New", "CriaBeaconAsync", new { }, new { @class = "btn btn-success" })
+</p>
+
+
+<div class="panel panel-default">
+    <div id="Tabs" role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#beacons" aria-controls="beacons" role="tab" data-toggle="tab">
+                    Beacons
+                </a>
+            </li>
+            <li><a href="#ativeBeacons" aria-controls="ativeBeacons" role="tab" data-toggle="tab">Ative Beacons</a></li>
+            <li><a href="#inativeBeacons" aria-controls="inativeBeacons" role="tab" data-toggle="tab">Inative Beacons</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content" style="padding-top: 20px">
+            <div role="tabpanel" class="tab-pane active" id="beacons">
+                <!-- This is beacons Information Tab -->
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Model</th>
+                        <th> </th><!-- acrescentei para a barra de cima ficar igual -->
+                        
+                    </tr>
+
+
+                    @foreach (var item in Model.Beacons)
+                    {
+
+                        <tr>
+                            <td>
+                                @item.BeaconID
+                            </td>
+                            <td>
+                                @item.Nome
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID )
+                                    {
+                                        @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+                                        break;
+
+                                    }
+
+                                }
+
+
+
+                                @Html.ActionLink("Details", "Details", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID )
+                                    {
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+                                        break;
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ativeBeacons">
+                <!--This is ativeBeacons Information Tab-->
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Model</th>
+                        <th> </th><!-- acrescentei para a barra de cima ficar igual -->
+                       
+                    </tr>
+
+
+                    @foreach (var item in Model.ABeacons)
+                    {
+                        <tr>
+                            <td>
+                                @item.BeaconID
+                            </td>
+                            <td>
+                                @item.Nome
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID )
+                                    {
+                                        @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID },new { @class = "btn btn-primary" })
+                                        break;
+                                    }
+
+                                }
+
+
+                                 @Html.ActionLink("Details", "Details", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID )
+                                    {
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+                                        break;
+                                    }
+                                }
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="inativeBeacons">
+                <!--This is inativeBeacons Information Tab-->
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Model</th>
+                        <th> </th> <!-- acrescentei para a barra de cima ficar igual -->
+                        
+                    </tr>
+
+
+                    @foreach (var item in Model.IBeacons)
+                    {
+                        <tr>
+                            <td>
+                                @item.BeaconID
+                            </td>
+                            <td>
+                                @item.Nome
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID)
+                                    {
+                                        @Html.ActionLink("Edit", "EditBeacon", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+                                        break;
+                                    }
+
+                                }
+
+
+
+                                @Html.ActionLink("Details", "Details", new { id = item.BeaconID }, new { @class = "btn btn-primary" })
+                                @if (User.Identity.Name == "toze")
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+
+                                }
+                                @foreach (var item2 in Model.BA)
+                                {
+                                    if (item2.adminemail == User.Identity.Name && item2.beaconID == item.BeaconID )
+                                    {
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+                                        break;
+                                    }
+                                }
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,136 @@
+﻿@model WebAppKnowHau.Models.CityListEdit
+
+@{
+    ViewBag.Title = "EditBeacon";
+}
+
+<h2>Edit Beacon '@Html.DisplayFor(model => model.EditBeaconViewModel.Nome)'</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <!--<h4>EditBeaconViewModel</h4>-->
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.BeaconID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.BeaconID, new { htmlAttributes = new { @class = "form-control",  @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.BeaconID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.MajorValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.MajorValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.MajorValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.MinorValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.MinorValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.MinorValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditBeaconViewModel.Mensagem, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditBeaconViewModel.Mensagem, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditBeaconViewModel.Mensagem, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.EditBeaconViewModel.ActiveBeacon)
+                    @Html.LabelFor(m => m.EditBeaconViewModel.ActiveBeacon)
+                    @Html.HiddenFor(m => m.EditBeaconViewModel.Hide)
+                </div>
+            </div>
+        </div>
+        <br />
+        <h3>Assign Administrators</h3>
+        <table class="table">
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email
+                </th>
+
+                <th></th>
+            </tr>
+
+            @for (var i = 0; i < Model.listaa.Count; i++)
+            {
+
+                    <tr>
+                        <td>
+
+                            <div>
+
+                                @Html.CheckBoxFor(modelItem => Model.listaa[i].addAdmin)
+                                @Html.HiddenFor(modelItem => Model.listaa[i].Email)
+                                @Html.HiddenFor(modelItem => Model.listaa[i].NomeAdmin)
+                                @Html.HiddenFor(modelItem => Model.listaa[i].Username)
+
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.listaa[i].Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.listaa[i].Email)
+                        </td>
+
+                    </tr>
+                
+            }
+        </table>
+       
+        <div class="form-group">
+            <div >
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-default" })
+                <input type="submit" value="Save" class="btn btn-primary" />
+                
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

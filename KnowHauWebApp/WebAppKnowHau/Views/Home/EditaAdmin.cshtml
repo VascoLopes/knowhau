@@ -1,0 +1,137 @@
+﻿@model WebAppKnowHau.Models.AdminListDetailsBeacon
+
+@{
+    ViewBag.Title = "EditaAdmin";
+}
+
+<h2>Edit Your Profile, '@Html.DisplayFor(model => model.EditaAdminViewModel.Nome)'</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <!--<h4>EditaAdminViewModel</h4>-->
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditaAdminViewModel.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditaAdminViewModel.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditaAdminViewModel.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditaAdminViewModel.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditaAdminViewModel.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EditaAdminViewModel.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditaAdminViewModel.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditaAdminViewModel.Email, new { htmlAttributes = new { @class = "form-control",  @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.EditaAdminViewModel.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+@if (User.Identity.Name != "toze")
+{
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditaAdminViewModel.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditaAdminViewModel.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditaAdminViewModel.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EditaAdminViewModel.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EditaAdminViewModel.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditaAdminViewModel.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.EditaAdminViewModel.ConfirmPassword)
+    @Html.HiddenFor(model => model.EditaAdminViewModel.Password)
+
+}
+@if (User.Identity.Name == "toze")
+{
+        <h3>Assign Beacons</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    
+                </th>
+                <th>
+                    BeaconID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Model
+                </th>
+
+                <th></th>
+            </tr>
+
+            @for (var i = 0; i < Model.listaDetailsBeacon.Count; i++)
+            {
+
+                <tr>
+                    <td>
+
+                        <div>
+
+                            @Html.CheckBoxFor(modelItem => Model.listaDetailsBeacon[i].addAdmin)
+                            @Html.HiddenFor(modelItem => Model.listaDetailsBeacon[i].beaconID)
+                            @Html.HiddenFor(modelItem => Model.listaDetailsBeacon[i].majorvalue)
+                            @Html.HiddenFor(modelItem => Model.listaDetailsBeacon[i].minorvalue)
+                            @Html.HiddenFor(modelItem => Model.listaDetailsBeacon[i].model)
+                            @Html.HiddenFor(modelItem => Model.listaDetailsBeacon[i].name)
+
+
+                        </div>
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].beaconID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].model)
+                    </td>
+
+                </tr>
+
+            }
+        </table>
+
+}
+        <p>
+            @if (User.Identity.Name == "toze")
+            {
+                    @Html.ActionLink("Back to List", "ListaAdmin", new { }, new { @class = "btn btn-default" })
+            }
+                    <input type="submit" value="Save" class="btn btn-primary" />
+            
+        </p>
+</div>
+   
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

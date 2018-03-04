@@ -1,0 +1,71 @@
+﻿@using WebAppKnowHau.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - KnowHau</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      
+        <div class="container">
+       
+            @if (Request.IsAuthenticated)
+            {
+                <div class="navbar-header">
+                    <div class="navbar-header pull-left">
+                        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                            <img src="~/images/qw.png" alt="Site Logo" style="height:25px; width: 25px" />
+                        </a>
+                    </div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("KnowHau", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav">
+                        @if (User.Identity.Name == "toze")
+                        {
+                            <li>@Html.ActionLink("Manage Administrators", "ListaAdmin", "Home")</li>
+                            <li>@Html.ActionLink("Register Administrator", "Register", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+
+                            <!--<li>@Html.ActionLink("Log MobileApps", "ListaLogMobApp", "Home")</li>-->
+                            <li>@Html.ActionLink("Log WebApp", "ListaLogWebbApp", "Home")</li>
+                            <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+
+                </div>}
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @{ Html.RenderPartial("_Alerts"); }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - KnowHau</p>
+            <p>Developed By: Guilherme Boino, Nelson Fonseca, Vasco Lopes</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

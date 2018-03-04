@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileKnowHau.Definicoes">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Help" Order="Primary" Icon="KnowSFundo.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout x:Name="Stackla" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Azure">
+            
+            <Label x:Name="Help"/>
+            <Button Text="Logout" Clicked="LogOff" HorizontalOptions="Center"/>
+            
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

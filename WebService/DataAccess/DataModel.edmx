@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="knowhauModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BA">
+          <Key>
+            <PropertyRef Name="baID" />
+          </Key>
+          <Property Name="baID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminemail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="beaconID" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BEACON">
+          <Key>
+            <PropertyRef Name="beaconID" />
+          </Key>
+          <Property Name="beaconID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="majorvalue" Type="int" />
+          <Property Name="minorvalue" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CONTENT">
+          <Key>
+            <PropertyRef Name="contentID" />
+          </Key>
+          <Property Name="contentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contentmsg" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="beaconID" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HISTORIC">
+          <Key>
+            <PropertyRef Name="historicID" />
+          </Key>
+          <Property Name="historicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contentID" Type="int" Nullable="false" />
+          <Property Name="userMAIL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOGMOBILEAPP">
+          <Key>
+            <PropertyRef Name="logmaID" />
+          </Key>
+          <Property Name="eventtype" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="logmaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOGWEBAPP">
+          <Key>
+            <PropertyRef Name="logwaID" />
+          </Key>
+          <Property Name="eventtype" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="logwaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUPERADMIN">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERM">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="birthdate" Type="datetime" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ADMINMAIL">
+          <End Role="ADMIN" Type="Self.ADMIN" Multiplicity="1" />
+          <End Role="BA" Type="Self.BA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADMIN">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="BA">
+              <PropertyRef Name="adminemail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BEACONID">
+          <End Role="BEACON" Type="Self.BEACON" Multiplicity="1" />
+          <End Role="BA" Type="Self.BA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BEACON">
+              <PropertyRef Name="beaconID" />
+            </Principal>
+            <Dependent Role="BA">
+              <PropertyRef Name="beaconID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BEACONIDINCONTENT">
+          <End Role="BEACON" Type="Self.BEACON" Multiplicity="1" />
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BEACON">
+              <PropertyRef Name="beaconID" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="beaconID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENTIDHIST">
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="1" />
+          <End Role="HISTORIC" Type="Self.HISTORIC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT">
+              <PropertyRef Name="contentID" />
+            </Principal>
+            <Dependent Role="HISTORIC">
+              <PropertyRef Name="contentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERMAILHIST">
+          <End Role="USERM" Type="Self.USERM" Multiplicity="1" />
+          <End Role="HISTORIC" Type="Self.HISTORIC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERM">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="HISTORIC">
+              <PropertyRef Name="userMAIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="knowhauModelStoreContainer">
+          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BA" EntityType="Self.BA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BEACON" EntityType="Self.BEACON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTENT" EntityType="Self.CONTENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HISTORIC" EntityType="Self.HISTORIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGMOBILEAPP" EntityType="Self.LOGMOBILEAPP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGWEBAPP" EntityType="Self.LOGWEBAPP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUPERADMIN" EntityType="Self.SUPERADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERM" EntityType="Self.USERM" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ADMINMAIL" Association="Self.FK_ADMINMAIL">
+            <End Role="ADMIN" EntitySet="ADMIN" />
+            <End Role="BA" EntitySet="BA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BEACONID" Association="Self.FK_BEACONID">
+            <End Role="BEACON" EntitySet="BEACON" />
+            <End Role="BA" EntitySet="BA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BEACONIDINCONTENT" Association="Self.FK_BEACONIDINCONTENT">
+            <End Role="BEACON" EntitySet="BEACON" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENTIDHIST" Association="Self.FK_CONTENTIDHIST">
+            <End Role="CONTENT" EntitySet="CONTENT" />
+            <End Role="HISTORIC" EntitySet="HISTORIC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERMAILHIST" Association="Self.FK_USERMAILHIST">
+            <End Role="USERM" EntitySet="USERM" />
+            <End Role="HISTORIC" EntitySet="HISTORIC" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="knowhauModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BAs" Relationship="Self.FK_ADMINMAIL" FromRole="ADMIN" ToRole="BA" />
+        </EntityType>
+        <EntityType Name="BA">
+          <Key>
+            <PropertyRef Name="baID" />
+          </Key>
+          <Property Name="baID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminemail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="beaconID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ADMIN" Relationship="Self.FK_ADMINMAIL" FromRole="BA" ToRole="ADMIN" />
+          <NavigationProperty Name="BEACON" Relationship="Self.FK_BEACONID" FromRole="BA" ToRole="BEACON" />
+        </EntityType>
+        <EntityType Name="BEACON">
+          <Key>
+            <PropertyRef Name="beaconID" />
+          </Key>
+          <Property Name="beaconID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="majorvalue" Type="Int32" />
+          <Property Name="minorvalue" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BAs" Relationship="Self.FK_BEACONID" FromRole="BEACON" ToRole="BA" />
+          <NavigationProperty Name="CONTENTs" Relationship="Self.FK_BEACONIDINCONTENT" FromRole="BEACON" ToRole="CONTENT" />
+        </EntityType>
+        <EntityType Name="CONTENT">
+          <Key>
+            <PropertyRef Name="contentID" />
+          </Key>
+          <Property Name="contentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentmsg" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="beaconID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BEACON" Relationship="Self.FK_BEACONIDINCONTENT" FromRole="CONTENT" ToRole="BEACON" />
+          <NavigationProperty Name="HISTORICs" Relationship="Self.FK_CONTENTIDHIST" FromRole="CONTENT" ToRole="HISTORIC" />
+        </EntityType>
+        <EntityType Name="HISTORIC">
+          <Key>
+            <PropertyRef Name="historicID" />
+          </Key>
+          <Property Name="historicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentID" Type="Int32" Nullable="false" />
+          <Property Name="userMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CONTENT" Relationship="Self.FK_CONTENTIDHIST" FromRole="HISTORIC" ToRole="CONTENT" />
+          <NavigationProperty Name="USERM" Relationship="Self.FK_USERMAILHIST" FromRole="HISTORIC" ToRole="USERM" />
+        </EntityType>
+        <EntityType Name="LOGMOBILEAPP">
+          <Key>
+            <PropertyRef Name="logmaID" />
+          </Key>
+          <Property Name="eventtype" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logmaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="LOGWEBAPP">
+          <Key>
+            <PropertyRef Name="logwaID" />
+          </Key>
+          <Property Name="eventtype" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logwaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="SUPERADMIN">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERM">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HISTORICs" Relationship="Self.FK_USERMAILHIST" FromRole="USERM" ToRole="HISTORIC" />
+        </EntityType>
+        <Association Name="FK_ADMINMAIL">
+          <End Role="ADMIN" Type="Self.ADMIN" Multiplicity="1" />
+          <End Role="BA" Type="Self.BA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADMIN">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="BA">
+              <PropertyRef Name="adminemail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BEACONID">
+          <End Role="BEACON" Type="Self.BEACON" Multiplicity="1" />
+          <End Role="BA" Type="Self.BA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BEACON">
+              <PropertyRef Name="beaconID" />
+            </Principal>
+            <Dependent Role="BA">
+              <PropertyRef Name="beaconID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BEACONIDINCONTENT">
+          <End Role="BEACON" Type="Self.BEACON" Multiplicity="1" />
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BEACON">
+              <PropertyRef Name="beaconID" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="beaconID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENTIDHIST">
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="1" />
+          <End Role="HISTORIC" Type="Self.HISTORIC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT">
+              <PropertyRef Name="contentID" />
+            </Principal>
+            <Dependent Role="HISTORIC">
+              <PropertyRef Name="contentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERMAILHIST">
+          <End Role="USERM" Type="Self.USERM" Multiplicity="1" />
+          <End Role="HISTORIC" Type="Self.HISTORIC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERM">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="HISTORIC">
+              <PropertyRef Name="userMAIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="knowhauEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMINs" EntityType="Self.ADMIN" />
+          <EntitySet Name="BAs" EntityType="Self.BA" />
+          <EntitySet Name="BEACONs" EntityType="Self.BEACON" />
+          <EntitySet Name="CONTENTs" EntityType="Self.CONTENT" />
+          <EntitySet Name="HISTORICs" EntityType="Self.HISTORIC" />
+          <EntitySet Name="LOGMOBILEAPPs" EntityType="Self.LOGMOBILEAPP" />
+          <EntitySet Name="LOGWEBAPPs" EntityType="Self.LOGWEBAPP" />
+          <EntitySet Name="SUPERADMINs" EntityType="Self.SUPERADMIN" />
+          <EntitySet Name="USERMs" EntityType="Self.USERM" />
+          <AssociationSet Name="FK_ADMINMAIL" Association="Self.FK_ADMINMAIL">
+            <End Role="ADMIN" EntitySet="ADMINs" />
+            <End Role="BA" EntitySet="BAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BEACONID" Association="Self.FK_BEACONID">
+            <End Role="BEACON" EntitySet="BEACONs" />
+            <End Role="BA" EntitySet="BAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BEACONIDINCONTENT" Association="Self.FK_BEACONIDINCONTENT">
+            <End Role="BEACON" EntitySet="BEACONs" />
+            <End Role="CONTENT" EntitySet="CONTENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENTIDHIST" Association="Self.FK_CONTENTIDHIST">
+            <End Role="CONTENT" EntitySet="CONTENTs" />
+            <End Role="HISTORIC" EntitySet="HISTORICs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERMAILHIST" Association="Self.FK_USERMAILHIST">
+            <End Role="USERM" EntitySet="USERMs" />
+            <End Role="HISTORIC" EntitySet="HISTORICs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="knowhauModelStoreContainer" CdmEntityContainer="knowhauEntities">
+          <EntitySetMapping Name="ADMINs">
+            <EntityTypeMapping TypeName="knowhauModel.ADMIN">
+              <MappingFragment StoreEntitySet="ADMIN">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BAs">
+            <EntityTypeMapping TypeName="knowhauModel.BA">
+              <MappingFragment StoreEntitySet="BA">
+                <ScalarProperty Name="baID" ColumnName="baID" />
+                <ScalarProperty Name="adminemail" ColumnName="adminemail" />
+                <ScalarProperty Name="beaconID" ColumnName="beaconID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BEACONs">
+            <EntityTypeMapping TypeName="knowhauModel.BEACON">
+              <MappingFragment StoreEntitySet="BEACON">
+                <ScalarProperty Name="beaconID" ColumnName="beaconID" />
+                <ScalarProperty Name="majorvalue" ColumnName="majorvalue" />
+                <ScalarProperty Name="minorvalue" ColumnName="minorvalue" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="model" ColumnName="model" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTENTs">
+            <EntityTypeMapping TypeName="knowhauModel.CONTENT">
+              <MappingFragment StoreEntitySet="CONTENT">
+                <ScalarProperty Name="contentID" ColumnName="contentID" />
+                <ScalarProperty Name="contentmsg" ColumnName="contentmsg" />
+                <ScalarProperty Name="beaconID" ColumnName="beaconID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HISTORICs">
+            <EntityTypeMapping TypeName="knowhauModel.HISTORIC">
+              <MappingFragment StoreEntitySet="HISTORIC">
+                <ScalarProperty Name="historicID" ColumnName="historicID" />
+                <ScalarProperty Name="contentID" ColumnName="contentID" />
+                <ScalarProperty Name="userMAIL" ColumnName="userMAIL" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOGMOBILEAPPs">
+            <EntityTypeMapping TypeName="knowhauModel.LOGMOBILEAPP">
+              <MappingFragment StoreEntitySet="LOGMOBILEAPP">
+                <ScalarProperty Name="eventtype" ColumnName="eventtype" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="logmaID" ColumnName="logmaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOGWEBAPPs">
+            <EntityTypeMapping TypeName="knowhauModel.LOGWEBAPP">
+              <MappingFragment StoreEntitySet="LOGWEBAPP">
+                <ScalarProperty Name="eventtype" ColumnName="eventtype" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="logwaID" ColumnName="logwaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUPERADMINs">
+            <EntityTypeMapping TypeName="knowhauModel.SUPERADMIN">
+              <MappingFragment StoreEntitySet="SUPERADMIN">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERMs">
+            <EntityTypeMapping TypeName="knowhauModel.USERM">
+              <MappingFragment StoreEntitySet="USERM">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

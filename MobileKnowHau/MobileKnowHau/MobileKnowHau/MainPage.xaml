@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MobileKnowHau"
+             x:Class="MobileKnowHau.MainPage" Title="KnowHau-Login"
+             xmlns:controls="MobileKnowHau:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="" Order="Primary" Icon="Assets/KnowSFundo.png" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+            
+        <ScrollView>
+            
+
+            <StackLayout x:Name="Stackla" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Azure">
+              <!--  <Label Text="olalalalla" FontSize="Large"/>-->
+                <ProgressBar x:Name="MyProgressBar"  WidthRequest="300" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False"></ProgressBar>
+                
+
+              <!--   <Image x:Name="Logo2" Source="KnowSFundo.png" />-->
+                <Image x:Name="Logo" Source="Assets/KnowSFundo.png" />
+
+                <Entry  TextColor="Black" Placeholder="Username" PlaceholderColor="#228B22" x:Name="txtUsername"/>
+                <Entry TextColor="Black" IsPassword="True" BindingContext="Password"  Placeholder="Password" PlaceholderColor="#228B22" x:Name="txtPassword"/>
+
+                <Button Text="Login" Clicked="Login" x:Name="Log"/>
+                    <Button Text="Registar" Clicked="RegistarUser" x:Name="Regis"/>
+
+    
+            </StackLayout>
+
+           
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

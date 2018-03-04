@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<WebAppKnowHau.Models.ListaAdmin>
+
+@{
+    ViewBag.Title = "Administrators";
+}
+
+<h2>Administrators</h2>
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Register", new { }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditaAdmin", new { id = item.Username }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Details", "DetailsAdmin", new { id = item.Username }, new { @class = "btn btn-primary" }) 
+            @if (User.Identity.Name != item.Username)
+            {
+                
+                @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.Username }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this Admin?');" })
+            }
+            
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "ListaAdmin", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Previous", "ListaAdmin", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Previous
+    }
+
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "ListaAdmin", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "ListaAdmin", new { pagina = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @: Next >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>

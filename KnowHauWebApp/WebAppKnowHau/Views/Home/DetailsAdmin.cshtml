@@ -1,0 +1,90 @@
+﻿@model WebAppKnowHau.Models.AdminListDetails
+
+@{
+    ViewBag.Title = "Admin Details";
+}
+<style>
+    .my_text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+    }
+</style>
+
+<h2>Administrator '@Html.DisplayFor(model => model.ListaAdmin.Nome)' Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal my_text">
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaAdmin.Nome)
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.ListaAdmin.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaAdmin.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListaAdmin.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaAdmin.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListaAdmin.Email)
+        </dd>
+
+    </dl>
+    <br /><br />
+    <h3>Assigned Beacons</h3>
+    <table class="table">
+        <tr>
+            <th>
+                BeaconID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Model
+            </th>
+
+            <th></th>
+        </tr>
+
+        @for (var i = 0; i < Model.listaDetailsBeacon.Count; i++)
+        {
+            if (Model.listaDetailsBeacon[i].addAdmin == true)
+            {
+                <tr>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].beaconID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.listaDetailsBeacon[i].model)
+                    </td>
+
+                </tr>}
+        }
+
+    </table>
+    <p>
+        
+                @Html.ActionLink("Back to List", "ListaAdmin", new { }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Edit", "EditaAdmin", new { id = Model.ListaAdmin.Username }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "DeleteAdmin", new { id = Model.ListaAdmin.Username }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this Admin?');" })
+
+</p>
+<div></div>
+
+

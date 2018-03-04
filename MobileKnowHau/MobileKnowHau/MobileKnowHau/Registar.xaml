@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileKnowHau.Registar" Title="Registar" Icon="icon.png">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="ola" Order="Primary" Icon="KnowSFundo.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content >
+        <ScrollView>
+        <StackLayout BackgroundColor="Azure">
+            <Entry  TextColor="Black" Placeholder="Name" PlaceholderColor="#4169E1" x:Name="txtName"/>
+                <Entry  TextColor="Black" Placeholder="Gener" PlaceholderColor="#4169E1" x:Name="txtGenre"  IsVisible="False"/>
+                <Picker x:Name="picker" Title="Select a genre" SelectedItem="olatestar1" />
+                <Entry  TextColor="Black" Placeholder="Username" PlaceholderColor="#4169E1" x:Name="txtUsername"/>
+                <Label Text="Birthdate" FontSize="Small" x:Name="olavasco"/>
+                <DatePicker x:Name="datepicker" Format="yyyy-MM-dd" DateSelected="onDateSelect" MaximumDate="12/12/2015"></DatePicker>
+                <Entry  TextColor="Black" Placeholder="Birthdate" PlaceholderColor="#4169E1" x:Name="txtBirth" IsVisible="False"/>
+                <Entry  TextColor="Black" Placeholder="Email" PlaceholderColor="#4169E1" x:Name="txtEmail"/>
+            <Entry  TextColor="Black" Placeholder="Password" PlaceholderColor="#4169E1" x:Name="txtPassword" IsPassword="True"/>
+            <Entry  TextColor="Black" Placeholder="Confirm Password" PlaceholderColor="#4169E1" x:Name="txtPasswordConfirm" IsPassword="True"/>
+            <Button Text="Registar" Clicked="btnAdicionar_Clicked"></Button>
+            </StackLayout></ScrollView>
+    </ContentPage.Content>
+</ContentPage>

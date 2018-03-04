@@ -1,0 +1,139 @@
+﻿@model  WebAppKnowHau.Models.CityList
+
+
+@{
+    ViewBag.Title = "CriaBeaconAsync";
+}
+
+<h2>Create new Beacon</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+       <!-- <h4>CreateBeacon</h4> -->
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.BeaconId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.BeaconId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.BeaconId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.Model, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.Model, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.MajorValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.MajorValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.MajorValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.MinorValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.MinorValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.MinorValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateBeacon.Mesage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreateBeacon.Mesage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreateBeacon.Mesage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.CreateBeacon.ActiveBeacon)
+                    @Html.LabelFor(m => m.CreateBeacon.ActiveBeacon)
+                </div>
+            </div>
+        </div>
+
+
+
+        <br />
+        <h3>Assign Administrators</h3>
+        <table class="table">
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Username
+                </th>
+
+                
+            </tr>
+
+            @for (var i = 0; i < Model.list.Count; i++)
+            {
+                    <tr>
+                        <td>
+
+                            <div>
+
+                                @Html.CheckBoxFor(modelItem => Model.list[i].addAdmin)
+                                @Html.HiddenFor(modelItem => Model.list[i].Email)
+                                @Html.HiddenFor(modelItem => Model.list[i].NomeAdmin)
+                                @Html.HiddenFor(modelItem => Model.list[i].Username)
+
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.list[i].Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.list[i].Email)
+                        </td>
+
+                    </tr>
+                
+            }
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-default" })
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    
+    @ViewBag.Loc
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

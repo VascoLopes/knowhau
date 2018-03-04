@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileKnowHau.Favoritos">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Blue" Order="Primary" Text="Delete All Favorites" Clicked="Lixo" />
+        <ToolbarItem Name="" Order="Primary" Icon="KnowSFundo.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Azure">
+            <Label Text="Search" FontSize="Large"></Label>
+            <SearchBar x:Name="MainSearchBar" TextChanged="Search_CLicked"/>
+            <Label Text="Favorite empty" x:Name="EmtHist"/>
+            <Label Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" x:Name="Historico2" IsVisible="False"/>
+            <ListView x:Name="teste"  SeparatorColor="Blue">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="Lixo2"  Command="{Binding Path=BindingContext.Utilizador, Source={x:Reference Name=teste}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        
+                                        <!-- <ColumnDefinition Width="1*"/>-->
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" x:Name="name" Text="{Binding .}" Margin="6" ></Label>
+                                    <!--<Button Grid.Column="3" Text="+" Clicked="teste22"/>-->
+                                    
+
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

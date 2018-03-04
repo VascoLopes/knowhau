@@ -1,0 +1,127 @@
+﻿@model WebAppKnowHau.Models.CityListDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    .my_text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+    }
+</style>
+
+<h2>Beacon '@Html.DisplayFor(model => model.BeaconsDetails.BeaconID)' Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal my_text">
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.BeaconID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.BeaconID)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.MajorValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.MajorValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.MinorValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.MinorValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BeaconsDetails.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.Message)
+        </dd>
+
+        <dt>
+            Vezes Vista
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeaconsDetails.Cont)
+        </dd>
+    </dl>
+</div>
+<br /><br />
+<h3>Assigned Administrators</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Email
+        </th>
+
+        <th></th>
+    </tr>
+
+    @for (var i = 0; i < Model.listaDetails.Count; i++)
+    {
+        if (Model.listaDetails[i].addAdmin == true) { 
+        <tr>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.listaDetails[i].Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.listaDetails[i].Email)
+            </td>
+
+        </tr>}
+    }
+    
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-default" })
+   
+    @if (User.Identity.Name == "toze")
+    {
+        @Html.ActionLink("Edit", "EditBeacon", new { id = Model.BeaconsDetails.BeaconID }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.BeaconsDetails.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+
+    }
+    @foreach (var item2 in Model.listaBA)
+    {
+        if (item2.adminemail == User.Identity.Name && item2.beaconID == Model.BeaconsDetails.BeaconID)
+        {
+            @Html.ActionLink("Edit", "EditBeacon", new { id = Model.BeaconsDetails.BeaconID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id = Model.BeaconsDetails.BeaconID }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this beacon?');" })
+            break;
+        }
+    }
+    
+</p>

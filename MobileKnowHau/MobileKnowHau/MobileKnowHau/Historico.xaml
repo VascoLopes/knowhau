@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileKnowHau.Historico">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="GoFavoritos" Text="Favorites" Clicked="GoFav"/>
+        <ToolbarItem Name="" Order="Primary" Icon="Assets/KnowSFundo.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Azure">
+            <ProgressBar x:Name="MyProgressBar"  WidthRequest="300" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False"></ProgressBar>
+            <Label Text="Search" FontSize="Large"></Label>
+            <SearchBar x:Name="MainSearchBar" TextChanged="Search_CLicked"/>
+           
+
+            <Label Text="Historico Vazio"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" x:Name="Historico2" IsVisible="False"/>
+            <StackLayout Orientation="Vertical" Padding="10,5">
+                <ListView x:Name="teste"  SeparatorColor="Blue" IsVisible="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="Lixo2"  Command="{Binding Path=BindingContext.Utilizador, Source={x:Reference Name=teste}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <!-- <ColumnDefinition Width="1*"/>-->
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" x:Name="name" Text="{Binding .}" ></Label>
+                                        <!--<Button Grid.Column="3" Text="+" Clicked="teste22"/>-->
+
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Label Text="Historico" FontSize="Large"></Label>
+                <Label Text="Historic Empty" x:Name="HistE" IsVisible="True"/>
+                <ListView x:Name="listaUtilizador"  SeparatorColor="Blue">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="VeCont"  Command="{Binding Path=BindingContext.Utilizador, Source={x:Reference Name=listaUtilizador}}" CommandParameter="{Binding .}" Text="More" IsDestructive="False" />
+                                    <MenuItem Clicked="OnDeletar"  Command="{Binding Path=BindingContext.Utilizador, Source={x:Reference Name=listaUtilizador}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                    <MenuItem Clicked="teste22"  Command="{Binding Path=BindingContext.Utilizador, Source={x:Reference Name=listaUtilizador}}" CommandParameter="{Binding .}" Text="Add Fav" IsDestructive="False" />
+                                </ViewCell.ContextActions>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <!-- <ColumnDefinition Width="1*"/>-->
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" x:Name="userName" Text="{Binding Item1}" ></Label>
+                                        <Label Grid.Column="1" x:Name="dataName" Text="{Binding Item2}" ></Label>
+                                      <!--  <Label Grid.Column="2" x:Name="ContentName" Text="{Binding contentID}"></Label>
+                                        <Button Grid.Column="3" Text="+" Clicked="teste22"/>-->
+
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="IrDefinicoes" Text="Definitions" VerticalOptions="Center" HorizontalOptions="Center" Clicked="IrDefinicao"/>
+                <Button Clicked="Gosto" Text="Local Notification" x:Name="ola"></Button>
+            </StackLayout>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

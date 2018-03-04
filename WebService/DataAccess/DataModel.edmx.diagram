@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ddd94ac8f8d344c6a7e099a255c6a225" Name="Diagram1">
+        <EntityTypeShape EntityType="knowhauModel.ADMIN" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.BA" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.BEACON" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.CONTENT" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.HISTORIC" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.LOGMOBILEAPP" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.LOGWEBAPP" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.SUPERADMIN" Width="1.5" PointX="9.625" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="knowhauModel.USERM" Width="1.5" PointX="7.875" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="knowhauModel.FK_ADMINMAIL" ManuallyRouted="false" />
+        <AssociationConnector Association="knowhauModel.FK_BEACONID" ManuallyRouted="false" />
+        <AssociationConnector Association="knowhauModel.FK_BEACONIDINCONTENT" ManuallyRouted="false" />
+        <AssociationConnector Association="knowhauModel.FK_CONTENTIDHIST" ManuallyRouted="false" />
+        <AssociationConnector Association="knowhauModel.FK_USERMAILHIST" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
